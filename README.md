@@ -10,7 +10,10 @@
 **Consultas disponibles** :white_check_mark:
 
   - SELECT FROM 
-  - SELECT FROM WHERE 
+  - SELECT FROM WHERE
+  - SELECT INNER JOIN
+  - SELECT COUNT | SELECT AVG
+  - SELECT MAX - MIN
   - UPDATE SET WHERE  
   - DELETE FROM WHERE  
   - INSERT INTO
