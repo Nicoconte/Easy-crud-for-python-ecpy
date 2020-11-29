@@ -1,10 +1,6 @@
 from utils.database import Database
 from query.query import Query
 
-from utils.utils import Utils
-
-def test():
-    print( Utils.trim_field_operation("count(bills)") )
 
 def main():  
 
