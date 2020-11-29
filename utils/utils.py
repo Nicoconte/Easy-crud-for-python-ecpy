@@ -2,6 +2,8 @@ class Utils:
     def __init__(self):
         pass
 
+    
+    keywords = ["count", "avg", "max", "min"]
 
     @staticmethod
     def validate_fields(tup):
@@ -24,3 +26,8 @@ class Utils:
         if connector.is_connected():
             connector.close()
             cursor.close()
+
+    @staticmethod
+    def trim_field_operation(string):
+        print(string)
+        return [string.replace("(", " ").replace(")", "").split(" ")[1]]

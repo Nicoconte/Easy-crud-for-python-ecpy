@@ -2,7 +2,7 @@ import mysql.connector
 
 
 class Database:
-    host = ""
+    __host = ""
     __database = ""
     __user = ""
     __password = ""

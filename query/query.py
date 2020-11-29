@@ -15,6 +15,7 @@ class Query:
 
     __success = False
     __response_container = []
+    __field = None
 
     def __init__(self, database):
         self.__db = database
@@ -94,10 +95,13 @@ class Query:
             self.__connector = self.__db.setConnection()
             self.__cursor = self.__connector.cursor(buffered=True)
 
-
             if 'values' in config:
                 self.__cursor.execute(
                     self.__builder.selectQuery(config['fields'], config['table'], config['condition']), config['values'] )
+           
+            elif ('condition' not in config and 'values' not in config) or ('condition' not in config):
+                self.__cursor.execute(self.__builder.selectQuery(config['fields'], config['table']))
+
             else:
                 self.__cursor.execute(self.__builder.selectQuery(config['fields'], config['table'], config['condition']))
 
@@ -151,12 +155,17 @@ class Query:
 
     #* --------------------------------------------------------------------------------------------------
     def selectJoin(self, config):
+
+        if (len(config['table']) == 1 or len(config['table']) > 2 or len(config['table']) <= 0):
+            return "Tabla invalida. Para la consulta inner join debe haber 2 tablas"
+
         try:
+            print("entro")
             self.__connector = self.__db.setConnection()
             self.__cursor = self.__connector.cursor(buffered=True)
 
             self.__cursor.execute(
-                self.__builder.selectInnerJoinQuery(config['fields'], config['table'], config['another_table'], config['relation'], config['condition']),
+                self.__builder.selectInnerJoinQuery(config['fields'], config['table'], config['relation'], config['condition']),
                 config['values']
             )
             

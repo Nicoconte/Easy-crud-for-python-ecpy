@@ -12,11 +12,11 @@ class Builder:
     def deleteQuery(self, table, condition):
         return f"delete from {table} {condition}"
 
-    def selectQuery(self, fields, table, condition):
+    def selectQuery(self, fields, table, condition=""):
         return f"select {','.join([field for field in fields])} from {table} {condition}"
     
     def selectAllQuery(self, fields, table, condition=""):
         return f"select {','.join([field for field in fields])} from {table} {condition}"
 
-    def selectInnerJoinQuery(self, fields, table, another_table, relation, condition):
-        return f"select {','.join([field for field in fields])} from {table} inner join {another_table} on {relation} {condition}"
+    def selectInnerJoinQuery(self, fields, table, relation, condition):
+        return f"select {','.join([field for field in fields])} from {table[0]} inner join {table[1]} on {relation} {condition}"

@@ -1,26 +1,77 @@
 from utils.database import Database
-from utils.utils import Utils
-from builder.query_builder import Builder 
 from query.query import Query
-import uuid
+
+from utils.utils import Utils
+
+def test():
+    print( Utils.trim_field_operation("count(bills)") )
 
 def main():  
 
-    response_dic = {}
-    response = []
-
     query = Query(Database("localhost", "python_database", "root", ""))
-
-    response = query.selectJoin({
-        "fields" : ("content", "author"),
-        "table" : "blog",
-        "another_table" : "user",
-        "relation" : "blog.id_author=user.id",
-        "condition" : "where blog.id_author=%s",
-        "values" : ("5",)
+    
+    query.insert({
+        "fields" : ("id", "name", "password"),
+        "table" : "user",
+        "values" : ("1", "admin", "123")
     })
 
-    print(response)
+    query.udpate({
+        "fields" : ("name",),
+        "table" : "user",
+        "condition" : "where id=%s",
+        "values" : ("super admin", "1")
+    })
+    
+    query.delete({
+        "table" : "user",
+        "condition" : "where id=%s",
+        "values" : ("2",)
+    })
 
+    query.select({
+        "fields" : ("name", "password"),
+        "table" : "user",
+        "condition" : "where id=%s",
+        "values" : ("1",)
+    })
+
+
+    query.select({
+        "fields" : ("name", "password"),
+        "table" : "user",
+        "condition" : "where name like %s",
+        "values" : ("%a%",)
+    })
+
+    query.select({
+        "fields" : ("name", "password"),
+        "table" : "user",
+        "condition" : "order by name"
+    })
+
+    query.select({
+        "fields" : ("name", "password"),
+        "table" : "user",
+        "condition" : "group by name"
+    })
+    
+    query.selectAll({
+        "fields" : ("id", "name", "password"),
+        "table" : "user"
+    })   
+
+    query.select({
+        "fields" : ("count(name)",),
+        "table" : "user"
+    })
+
+    query.select({
+        "fields" : ("avg(bills)",),
+        "table" : "payments",
+        "condition" : "where id_user=%s",
+        "values" : ("1",)
+    })    
+    
 if __name__ == "__main__":
     main()
